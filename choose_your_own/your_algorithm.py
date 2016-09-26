@@ -28,12 +28,26 @@ plt.show()
 ################################################################################
 
 
-### your code here!  name your classifier object clf if you want the 
+### your code here!  name your classifier object clf if you want the
 ### visualization code (prettyPicture) to show you the decision boundary
 
+import numpy as np
+from sklearn import tree
+from sklearn.ensemble import AdaBoostRegressor
 
+rng = np.random.RandomState(1)
 
+clf = AdaBoostRegressor(tree.DecisionTreeClassifier(min_samples_split=40),
+                          n_estimators=300, random_state=rng)
 
+clf = clf.fit(features_train, labels_train)
+
+pred = clf.predict(features_test)
+
+from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(pred, labels_test)
+
+print "Accuracy is: {0} or {1}% ".format(round(accuracy, 4), round(accuracy * 100, 2))
 
 
 
